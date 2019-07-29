@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="stockDAO">
+
+	<select id="select" parameterType="String" resultType="stockDTO">
+		SELECT
+		*
+		FROM stock
+		WHERE company = #{company}
+	</select>
+
+	<resultMap type="stockDTO" id="rs">
+		<result property="link" column="link" />
+		<result property="company" column="company"/>
+		<result property="pPrice" column="pPrice"/>
+		<result property="yesterdayToday" column="yesterdayToday"/>
+		<result property="upDown" column="upDown"/>
+		<result property="windowPrice" column="windowPrice"/>
+		<result property="totalPrice" column="totalPrice"/>
+		<result property="amount" column="amount"/>
+		<result property="foreigner" column="foreingner"/>
+		<result property="volume" column="volume"/>
+		<result property="per" column="per"/>
+		<result property="roe" column="roe"/>
+		<result property="toron" column="toron"/>
+		<result property="isTrade" column="isTrade"/>
+	</resultMap>
+
+	<select id="selectAll" resultMap="rs">
+		SELECT * FROM stock
+	</select>
+
+	<insert id="insert" parameterType="stockDTO">
+		INSERT INTO stock 
+		VALUES(#{link},#{company},#{pPrice},#{yesterdayToday},
+		#{upDown},#{windowPrice},#{totalPrice},#{amount},#{foreigner},
+		#{volume},#{per},#{roe},#{toron},#{isTrade})
+	</insert>
+
+	<update id="update" parameterType="stockDTO">
+		UPDATE stock
+		SET
+		pPrice=#{pPrice}
+		WHERE
+		company = #{company}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM stock WHERE
+		company = #{company}
+	</delete>
+
+</mapper>
